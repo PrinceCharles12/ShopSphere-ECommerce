@@ -1,0 +1,81 @@
+@model ShopSphereMVC.Models.Product
+@using ShopSphereMVC.Models
+
+<div class="container mt-4 mb-5">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                ➕ Create New Product
+            </h3>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"> Product Name </label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"> Category </label>
+
+                        <select asp-for="CategoryId" class="form-control">
+
+                            <option value=""> Select Category </option>
+
+                            @foreach (var category in (List<Category>)ViewBag.Categories)
+                            {
+                                <option value="@category.Id"> @category.Name </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold"> Description </label>
+                    <textarea asp-for="Description"
+                              rows="4"
+                              class="form-control">
+                    </textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"> Price (₹) </label>
+                        <input asp-for="Price" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"> Stock </label>
+                        <input asp-for="Stock" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold"> Product Image </label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        ✅ Create Product
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

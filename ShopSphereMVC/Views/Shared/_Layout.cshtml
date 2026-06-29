@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ShopSphereMVC</title>
+
+    <script type="importmap"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/css/custom.css" />      
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/ShopSphereMVC.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+            <a class="navbar-brand"
+               asp-controller="Home"
+               asp-action="Index">
+                🛒 ShopSphere
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="navbarContent">
+
+                <!-- Left Side -->
+
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Products"
+                           asp-action="Index">
+                            Products
+                        </a>
+                    </li>
+
+                </ul>
+
+                <!-- Center -->
+
+                @if(Context.Session.GetString("JWToken") != null)
+                {
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Cart"
+                               asp-action="Index">
+                                🛒 Cart
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Orders"
+                               asp-action="Index">
+                                My Orders
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Wishlist"
+                               asp-action="Index">
+
+                                ❤️ Wishlist
+
+                                <span class="wishlist-badge">
+                                    @(ViewBag.WishlistCount ?? 0)
+                                </span>
+
+                            </a>
+                        </li>
+
+                    </ul>
+                }
+
+                <!-- Right Side -->
+
+                <ul class="navbar-nav">
+
+                    @if(Context.Session.GetString("JWToken") == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Account"
+                               asp-action="Login">
+                                Login
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Account"
+                               asp-action="Register">
+                                Register
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown">
+
+                                👤 @Context.Session.GetString("Role")
+
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-controller="Profile"
+                                       asp-action="Index">
+
+                                        My Profile
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-controller="Reviews"
+                                       asp-action="History">
+
+                                        My Reviews
+
+                                    </a>
+                                </li>
+
+                                @if(Context.Session.GetString("Role") == "Admin")
+                                {
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Admin"
+                                           asp-action="Dashboard">
+
+                                            Admin Dashboard
+
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                            asp-controller="Orders"
+                                            asp-action="ManageOrders">
+                                            Manage Orders
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Categories"
+                                           asp-action="Index">
+
+                                            Manage Categories
+
+                                        </a>
+                                    </li>
+                                }
+
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item text-danger"
+                                       asp-controller="Account"
+                                       asp-action="Logout">
+
+                                        Logout
+
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+</header>    
+
+    
+
+    <main role="main" class="container mt-4 pb-5">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="container text-center">
+
+            <h5 class="mb-1">ShopSphere</h5>
+
+            <p class="mb-1">
+                Your One Stop Shopping Destination
+            </p>
+
+            <small>
+                © 2026 ShopSphere. All Rights Reserved.
+            </small>
+
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

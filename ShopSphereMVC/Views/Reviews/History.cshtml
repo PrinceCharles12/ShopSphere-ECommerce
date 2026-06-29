@@ -1,0 +1,42 @@
+@model List<ShopSphereMVC.Models.ReviewHistory>
+
+<h2>My Reviews</h2>
+
+<table class="table">
+
+    <tr>
+        <th>Product</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Date</th>
+    </tr>
+
+    @foreach(var review in Model)
+    {
+        <tr>
+
+            <td>
+                @review.ProductName
+            </td>
+
+            <td>
+
+                @for(int i=1;i<=review.Rating;i++)
+                {
+                    <span style="color:gold"> ★ </span>
+                }
+
+            </td>
+
+            <td>
+                @review.Comment
+            </td>
+
+            <td>
+                @review.CreatedAt
+            </td>
+
+        </tr>
+    }
+
+</table>

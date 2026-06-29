@@ -1,0 +1,186 @@
+@model ShopSphereMVC.Models.Product
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <!-- Product Image -->
+        <div class="col-md-5">
+            <div class="card shadow border-0">
+                <img src="@Model.ImageUrl"
+                     class="img-fluid rounded"
+                     style="height:450px; object-fit:cover;"
+                     alt="@Model.Name" />
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-7">
+
+            <h2 class="fw-bold"> @Model.Name </h2>
+
+            <hr />
+
+            <h3 class="text-success fw-bold"> ₹@Model.Price </h3>
+
+            <div class="mb-3">
+
+                @for(int i=1;i<=5;i++)
+                {
+                    if(i <= Math.Round(Model.AverageRating))
+                    {
+                        <span style="color:gold;">★</span>
+                    }
+                    else
+                    {
+                        <span style="color:lightgray;">★</span>
+                    }
+                }
+
+                <strong> @Model.AverageRating.ToString("0.0") </strong>
+
+                <span class="text-muted"> (@Model.ReviewCount Reviews) </span>
+
+            </div>
+
+            <p class="lead"> @Model.Description </p>
+
+            <p>
+                <strong>Stock Available:</strong>
+                @Model.Stock
+            </p>
+
+            <form asp-controller="Cart"
+                  asp-action="AddToCart"
+                  method="post">
+
+                <input type="hidden" name="productId" value="@Model.Id" />
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="number"
+                               name="quantity"
+                               value="1"
+                               min="1"
+                               class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3 me-2">
+                    🛒 Add To Cart
+                </button>
+
+            </form>
+
+            <form asp-controller="Wishlist"
+                  asp-action="Add"
+                  method="post"
+                  class="d-inline">
+
+                <input type="hidden"
+                       name="productId"
+                       value="@Model.Id" />
+
+                <button type="submit" class="btn btn-danger mt-3">
+                    ❤️ Add To Wishlist
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <hr class="mt-5" />
+
+    <!-- Reviews Section -->
+
+    <h3 class="mb-4"> Customer Reviews </h3>
+
+    @{
+        var reviews = ViewBag.Reviews as List<ShopSphereMVC.Models.Review>;
+    }
+
+    @if(reviews != null && reviews.Any())
+    {
+        @foreach(var review in reviews)
+        {
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5>
+                        @for(int i=1;i<=5;i++)
+                        {
+                            if(i <= review.Rating)
+                            {
+                                <span style="color:gold;">
+                                    ★
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="color:lightgray;">
+                                    ★
+                                </span>
+                            }
+                        }
+
+                    </h5>
+
+                    <h6 class="fw-bold text-primary"> @review.UserName </h6>
+
+                    <p> @review.Comment </p>
+
+                    <small class="text-muted">
+                        Reviewed on @review.CreatedAt.ToString("dd MMM yyyy")
+                    </small>
+
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">
+            No Reviews Yet.
+        </div>
+    }
+
+    <hr class="mt-5" />
+
+    <!-- Write Review -->
+
+    <h3> Write a Review </h3>
+
+    <form asp-controller="Reviews"
+          asp-action="Add"
+          method="post">
+
+        <input type="hidden" name="productId" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label"> Rating </label>
+            <select name="rating" class="form-control">
+
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"> Comment </label>
+            <textarea name="comment" class="form-control" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Submit Review
+        </button>
+
+    </form>
+
+</div>

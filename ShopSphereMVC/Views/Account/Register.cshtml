@@ -1,0 +1,25 @@
+@model ShopSphereMVC.Models.RegisterRequest
+
+<h2>Register</h2>
+
+<form method="post">
+
+    <input asp-for="Name" class="form-control" placeholder="Name" />
+
+    <br />
+
+    <input asp-for="Email" class="form-control" placeholder="Email" />
+
+    <br />
+
+    <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+
+    <br />
+
+    <button type="submit" class="btn btn-success"> Register </button>
+
+</form>
+
+<p style="color:red">
+    @ViewBag.Error
+</p>

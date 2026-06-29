@@ -1,0 +1,41 @@
+@model ShopSphereMVC.Models.UserProfile
+
+@if (Model == null)
+{
+    <h3>Profile not found</h3>
+    return;
+}
+
+<h2>My Profile</h2>
+
+<div class="card p-4">
+
+    <p>
+        <strong>User Id:</strong>
+        @Model.Id
+    </p>
+
+    <p>
+        <strong>Name:</strong>
+        @Model.Name
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        @Model.Email
+    </p>
+
+    <p>
+        <strong>Role:</strong>
+        @Model.Role
+    </p>
+
+</div>
+
+<a asp-action="Edit" class="btn btn-primary">
+    Edit Profile
+</a>
+
+<a asp-action="ChangePassword" class="btn btn-warning">
+    Change Password
+</a>

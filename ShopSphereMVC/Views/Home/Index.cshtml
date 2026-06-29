@@ -1,0 +1,164 @@
+﻿@model List<ShopSphereMVC.Models.Product>
+
+<section class="hero-section">
+
+    <div class="container hero-container">
+
+        <div class="hero-left">
+
+            <span class="welcome-text"> Welcome to </span>
+
+            <h1 class="hero-title">
+                Shop<span>Sphere</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Discover Amazing Products at
+                Unbeatable Prices
+            </p>
+
+            <a asp-controller="Products" asp-action="Index"
+               class="btn btn-success btn-lg hero-btn">
+
+                Shop Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+                🚚
+                <h5>Fast Delivery</h5>
+                <p>Get products delivered fast</p>
+            </div>
+
+            <div class="col-md-3">
+                🔒
+                <h5>Secure Payments</h5>
+                <p>100% Secure Checkout</p>
+            </div>
+
+            <div class="col-md-3">
+                ⭐
+                <h5>Best Quality</h5>
+                <p>Premium Products</p>
+            </div>
+
+            <div class="col-md-3">
+                🎧
+                <h5>24/7 Support</h5>
+                <p>Always Available</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="container mt-5">
+
+    <h2 class="mb-4">
+        Top Rated Products
+    </h2>
+
+    <div class="row">
+
+        @foreach(var product in Model)
+        {
+            <div class="col-md-3">
+
+                <div class="card shadow-sm">
+
+                    <img src="@product.ImageUrl" class="card-img-top product-img">
+
+                    <div class="card-body">
+
+                        <h5>@product.Name</h5>
+
+                        <p class="price"> ₹@product.Price </p>
+
+                        <a asp-controller="Products" asp-action="Details"
+                           asp-route-id="@product.Id" class="btn btn-primary">
+ 
+                            View
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</section>
+
+<h2 class="section-title">Shop By Category</h2>
+
+<div class="row text-center">
+
+    <div class="col-md-3">
+        <div class="card p-4">
+            👕
+            <h4>Fashion</h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-4">
+            📱
+            <h4>Electronics</h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-4">
+            🏠
+            <h4>Home</h4>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-4">
+            ⚽
+            <h4>Sports</h4>
+        </div>
+    </div>
+
+</div>
+
+<div class="container mt-5 mb-5 pb-5">
+
+    <div class="row text-center">
+
+        <div class="col-md-4">
+            <h2>1000+</h2>
+            <p>Products</p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>500+</h2>
+            <p>Happy Customers</p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>50+</h2>
+            <p>Categories</p>
+        </div>
+
+    </div>
+
+</div>
+

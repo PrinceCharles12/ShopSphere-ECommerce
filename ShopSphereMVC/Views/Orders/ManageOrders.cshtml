@@ -1,0 +1,78 @@
+@model List<ShopSphereMVC.Models.AdminOrder>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<h2 class="mb-4">Manage Customer Orders</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Payment Status</th>
+            <th>Delivery Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.CustomerName</td>
+            <td>@item.CustomerEmail</td>
+            <td>@item.OrderDate.ToString("dd-MM-yyyy")</td>
+            <td>₹@item.TotalAmount</td>
+            <td>
+                <span class="badge bg-success">
+                    @item.Status
+                </span>
+            </td>
+
+            <td>
+                <form asp-action="UpdateDeliveryStatus" method="post">
+
+                    <input type="hidden" name="orderId" value="@item.Id" />
+
+                    <select name="deliveryStatus" class="form-select">
+
+                        <option value="Pending" selected="@(item.DeliveryStatus=="Pending")">
+                            Pending
+                        </option>
+
+                        <option value="Processing" selected="@(item.DeliveryStatus=="Processing")">
+                            Processing
+                        </option>
+
+                        <option value="Shipped" selected="@(item.DeliveryStatus=="Shipped")">
+                            Shipped
+                        </option>
+
+                        <option value="Out For Delivery" selected="@(item.DeliveryStatus=="Out For Delivery")">
+                            Out For Delivery
+                        </option>
+
+                        <option value="Delivered" selected="@(item.DeliveryStatus=="Delivered")">
+                            Delivered
+                        </option>
+
+                    </select>
+
+                    <button class="btn btn-primary btn-sm mt-2">
+                        Update
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+
+</table>

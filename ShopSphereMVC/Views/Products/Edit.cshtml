@@ -1,0 +1,55 @@
+@model ShopSphereMVC.Models.Product
+
+<h2>Edit Product</h2>
+
+<form method="post" enctype="multipart/form-data">
+
+    <input asp-for="Id" type="hidden" />
+
+    <div class="mb-3">
+        <label>Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Stock</label>
+        <input asp-for="Stock" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Category</label>
+
+        <select asp-for="CategoryId" class="form-control">
+
+            @foreach(var category in (List<Category>)ViewBag.Categories)
+            {
+                <option value="@category.Id">
+                    @category.Name
+                </option>
+            }
+
+        </select>
+
+    </div>
+
+    <input asp-for="ImageUrl" type="hidden" />
+    <div class="mb-3">
+        <label>Change Product Image</label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-warning">
+        Update Product
+    </button>
+
+</form>
